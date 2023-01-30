@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Shower Presentation Engine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+
+        .small p {
+            font-size: 16px;
+        }
+
+        .small li {
+            font-size: 16px;
+        }
+
+        .small code {
+            font-size: 16px;
+        }
+
+        .property {
+            color: #905;
+        }
+
+        .value {
+            color: #333;
+        }
+
+        .selector {
+            color: #690;
+        }
+
+        .selector~.property {
+            display: inline-block;
+            padding-left: 50px;
+        }
+
+        .table-row {
+            display: table-row;
+        }
+
+        .values dd {
+            display: table-cell;
+        }
+
+        .values {
+            font-size: 16px;
+            overflow: scroll;
+            max-height: 40vh;
+        }
+    </style>
+</head>
+
+<body class="shower list">
+
+    <header class="caption">
+        <h1>CSS. Стилізація елементів (тінь, прозорість, нахил, зсув)</h1>
+    </header>
+
+    <section class="slide" id="cover">
+        <h2>Основи Fron-End розробки</h2>
+        <h3>CSS. Стилізація елементів (тінь, прозорість, нахил, зсув)</h3>
+        <figure>
+            <img class="cover" src="pictures/coding-cover.jpeg">
+        </figure>
+        <style>
+            #cover h2 {
+                margin: 30px 0 0;
+                color: white;
+                text-align: center;
+                font-size: 70px;
+            }
+
+            #cover h3 {
+                margin: 30px 0 0;
+                color: white;
+                text-align: center;
+                font-size: 50px;
+                text-shadow: 2px 2px 2px #000000;
+            }
+
+            @media print {
+                #cover h3 {
+                    text-shadow: none;
+                }
+            }
+
+            .cover {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+            }
+
+            .demo-wrapper {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
+            .elements {
+                max-height: 100vh;
+                overflow: scroll;
+                position: relative;
+                width: 50%;
+            }
+
+            .demo-button {
+                display: block;
+                width: 250px;
+                padding: 5px 5px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                border: 2px solid #000;
+            }
+
+            .demo-button pre {
+                margin-bottom: 0;
+            }
+
+            .demo-button.active {
+                border-color: aquamarine;
+            }
+
+            .demo {
+                width: 200px;
+                height: 100px;
+                border: 1px solid #000;
+                background-color: aqua;
+                position: relative;
+                top: 10%;
+                left: 10%;
+            }
+
+            .demo-button code {
+                line-height: 1;
+                font-size: 12px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Тінь елементу</h2>
+        <p>
+            Властивість <code>box-shadow</code> додає тінь до елементу.
+        </p>
+        <p>
+            Синтаксис<br />
+            <code>
+                <span class="property">box-shadow:</span>
+                <span class="value">none|h-shadow v-shadow blur spread color |inset|initial|inherit;</span>
+            </code>
+        </p>
+    </section>
+
+    <section class="slide small">
+        <h2>Тінь елементу</h2>
+        <p>
+            Властивість <strong>box-shadow</strong>може отримувати 9 значень:
+        </p>
+
+        <p>
+            <code>none</code> - Без задання. Тіні немає<br />
+            <code>h-shadow</code> Обов'язкове значення. Зсув тіні по горизонталі. Позитивне значення цього параметра
+            задає зсув
+            тіні вправо, від'ємне - вліво<br />
+            <code>v-shadow</code> - Обов'язкове значення. Зсув тіні по вертикалі. Позитивне значення задає зсув тіні
+            вниз,
+            від'ємне - вгору.<br />
+            <code>blur</code> - Задає радіус розмиття тіні. Чим більше це значення, тим сильніше тінь згладжується, стає
+            ширше і світліше. <br />
+            <code>spread</code> - Позитивне значення розтягує тінь, від'ємне, навпаки, стискає її. Без задання цей
+            параметр не
+            заданий та дорівнює 0, при цьому тінь буде того ж розміру, що й елемент.<br />
+            <code>color</code> - Колір тіні в будь-якому доступному CSS форматі, без задання тінь чорна.<br />
+            <code>inset</code> - Тінь виводиться всередині елемента<br />
+            <code>initial</code> - Встановлює властивість у значення без задання<br />
+            <code>inherit</code> - Вказує на спадковість властивості від свого батьківського елемента<br />
+        </p>
+
+    </section>
+
+    <section class="slide shadow-demo">
+        <h2>Тінь елементу</h2>
+        <div class="demo-wrapper">
+            <div class="buttons">
+                <textarea class="demo-button active">box-shadow: 10px 5px 5px red;</textarea>
+
+                <textarea class="demo-button">box-shadow: 60px -16px teal;</textarea>
+
+                <textarea class="demo-button">box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);</textarea>
+
+                <textarea class="demo-button">box-shadow: inset 5em 1em gold;</textarea>
+
+                <textarea class="demo-button">box-shadow: 3px 3px red, -1em 0 .4em olive;</textarea>
+            </div>
+
+            <div class="elements">
+                <div class="demo" style="box-shadow: 10px 5px 5px red;"></div>
+            </div>
+        </div>
+
+
+        <script>
+            function removeActive1() {
+                document.querySelectorAll('.shadow-demo .demo-button').forEach(b => b.classList.remove('active'))
+            }
+
+            document.querySelectorAll('.shadow-demo .demo-button').forEach(b => {
+
+                function changeStyle() {
+                    const demoBlock = document.querySelector('.demo')
+                    const style = this.value
+                    removeActive1()
+                    this.classList.add('active')
+                    demoBlock.style = style;
+                }
+
+                b.onchange = changeStyle
+                b.onfocus = changeStyle
+            })
+        </script>
+    </section>
+
+    <section class="slide">
+        <h2>Тінь тексту</h2>
+        <p>CSS властивість <code>text-shadow</code> додає тінь до тексту. </p>
+        <p>
+            Синтаксис<br />
+            <code>
+                <span class="property">text-shadow:</span>
+                <span class="value">h-shadow v-shadow blur-radius color|none|initial|inherit;</span>
+            </code>
+        </p>
+    </section>
+
+    <section class="slide small">
+        <h2>Тінь тексту</h2>
+        <p>
+            Властивість <strong>text-shadow</strong>
+            може отримувати 7 значень:
+        </p>
+
+        <p>
+            <code>none</code> - Тінь відсутня.<br />
+            <code>h-shadow</code> - Обов'язково. Зміщення тіні по горизонталі. Допускаються від'ємні значення.<br />
+            <code>v-shadow</code> - Обов'язково. Зміщення тіні по вертикалі. Допускаються від'ємні значення.<br />
+            <code>blur-radius</code> - Радіус розмиття тіні.<br />
+            <code>color</code> - Колір тіні.<br />
+            <code>initial</code> - Встановлює властивість у значення без задання.<br />
+            <code>inherit</code> - Вказує на спадковість властивості від свого батьківського елемента (якщо відповідна
+            властивість встановлена).
+        </p>
+    </section>
+
+    <section class="slide text-shadow-demo">
+        <h2>Тінь елементу</h2>
+        <div class="demo-wrapper">
+            <div class="buttons">
+                <textarea class="demo-button active">text-shadow: 1px 1px 2px pink;</textarea>
+
+                <textarea class="demo-button">text-shadow: #FC0 1px 0 10px;</textarea>
+
+                <textarea class="demo-button">text-shadow: 5px 5px #558ABB;</textarea>
+
+                <textarea class="demo-button">text-shadow: red 2px 5px;</textarea>
+
+                <textarea class="demo-button">text-shadow: 5px 10px;</textarea>
+
+                <textarea class="demo-button">text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;</textarea>
+            </div>
+
+            <div class="elements">
+                <div class="demo-text" style="text-shadow: 1px 1px 2px pink;">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .demo-text {
+                font-size: 1.5em;
+                line-height: 1.6;
+                text-align: center;
+            }
+        </style>
+
+
+        <script>
+            function removeActive2() {
+                document.querySelectorAll('.text-shadow-demo .demo-button').forEach(b => b.classList.remove('active'))
+            }
+
+            document.querySelectorAll('.text-shadow-demo .demo-button').forEach(b => {
+
+                function changeStyle() {
+                    const demoBlock = document.querySelector('.demo-text')
+                    const style = this.value
+                    removeActive2()
+                    this.classList.add('active')
+                    demoBlock.style = style;
+                }
+
+                b.onchange = changeStyle
+                b.onfocus = changeStyle
+            })
+        </script>
+    </section>
+
+    <section class="slide">
+        <h2>Прозорість</h2>
+        <p>CSS властивість <code>opacity</code> задає рівень прозорості для елемента, таким чином, щоб він став напівпрозорим, або навіть невидимим. Без задання будь-який елемент має 100% непрозорість.</p>
+        <p>Синтаксис<br />
+            <code class="nohighlight">
+                <span class="property">opacity:</span> 
+                <span class="value">&lt;number&gt;|initial|inherit|unset;</span>
+            </code>
+        </p>
+    </section>
+
+    <section class="slide small">
+        <h2>Прозорість</h2>
+        <p>
+            Властивість <strong>opacity</strong>
+            може отримувати 4 значень:
+        </p>
+
+        <p>
+            <code>number</code> - Визначає прозорість. В діапазоні від 0.0 (повна прозорість) до 1.0 (непрозорість).Також дозволяється писати числа без нуля попереду, наприклад:<br />
+            <code>initial</code> - Встановлює властивість у значення без задання<br />
+            <code>inherit</code> - Вказує на спадковість властивості від свого батьківського елемента<br />
+            <code>unset</code> - Комбінація ключових слів initial і inherit. Встановлює значення властивості як inherit, якщо властивість успадковується від свого батька, в іншому випадку значення встановлюється як initial.
+        </p>
+    </section>
+
+    <section class="slide small">
+        <h2>Прозорість</h2>
+        <div>
+            <input type="range" class="input" id="input" value="100"> <span id="val">1</span>
+        </div>
+
+        <div class="exm">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, voluptates!
+        </div>
+
+        <style>
+            .exm {
+                font-size: 1.8em;
+                border:#000 1px solid;
+                background-color: aqua;
+                line-height: 1.5;
+                padding: 15px;
+            } 
+        </style>
+
+        <script>
+            const el = document.querySelector('.exm')
+            const v = document.getElementById('val')
+            document.getElementById('input').oninput = function () {
+                const val = this.value / 100
+                el.style.opacity = val
+                v.innerHTML = val
+            }
+        </script>
+        
+    </section>
+
+    <section class="slide small">
+        <h2>Трансформація елементів</h2>
+        <p>Властивість <code>transform</code> дозволяє застосовувати 2D або 3D трансформацію до елементу. Ця властивість
+            дозволяє обертати, масштабувати, переміщувати, нахиляти елемент, тощо.</p>
+
+        <p>Властивість <code>transform</code> отримує в якості значень "трансформуючі функції". Ці функції виглядають як
+            <code>scale(), translateX(), rotate()</code> тощо. Вони приймають параметри для визначення ступення
+            трансформації.</p>
+
+        <p>Ви також можете задавати декілька функцій одночасно. Якщо ця властивість приймає значення відмінне від
+            <code>none</code> - створюється новий контекст накладення. В цьому випадку об'єкт буде поводитися як
+            контейнер для нащадків з <code>position: fixed;</code>.</p>
+
+        <p>
+            Синтаксис<br />
+            <code>
+                <span class="property">transform:</span>
+                <span class="value">none|transform-functions|initial|inherit;</span>
+            </code>
+        </p>
+    </section>
+
+    <section class="slide small">
+        <h2>Трансформація елементів</h2>
+        <p>
+            Властивість <strong>transform</strong>
+                    може отримувати 24 значення:
+            </p>
+        <div>
+            <dl class="values">
+                <div class="table-row">
+                    <dt><code>none</code></dt>
+                    <dd>
+                        <p>Скасовує трансформацію. Без задання.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>matrix(n,n,n,n,n,n)</code></dt>
+                    <dd>
+                        <p>2D перетворення, за допомогою матрицю з шести значень.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>matrix3d (n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n)</code></dt>
+                    <dd>
+                        <p>3D перетворення, за допомогою матриці 4x4 з 16 значень.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>translate(x,y)</code></dt>
+                    <dd>
+                        <p>2D зсув по горизонталі і вертикалі.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>translate3d(x,y,z)</code></dt>
+                    <dd>
+                        <p>3D зсув по трьом вісям.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>translateX(x)</code></dt>
+                    <dd>
+                        <p>2D зсув по горизонталі (вісь X). Дозволені від'ємні значення. Додатне значення зсовує вправо,
+                            від'ємне вліво.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>translateY(y)</code></dt>
+                    <dd>
+                        <p>2D зсув по вертикалі (вісь Y). Дозволені від'ємні значення. Додатне значення зсовує вниз,
+                            від'ємне вверх.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>translateZ(z)</code></dt>
+                    <dd>
+                        <p>3D зсув по вісі Z. Дозволені від'ємні значення. Додатне значення зсовує вправо, від'ємне
+                            вліво.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>scale(x,y)</code></dt>
+                    <dd>
+                        <p>Масштабування елемента по горизонталі та вертикалі.
+
+                            Значення меньше 1 - зменшує елемент, більше - збільшує.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>scale3d(x,y,z)</code></dt>
+                    <dd>
+                        <p>Масштабування елемента тривимірному просторі.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>scaleX(x)</code></dt>
+                    <dd>
+                        <p>Масштабування елемента по горизонталі (вісь X).</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>scaleY(y)</code></dt>
+                    <dd>
+                        <p>Масштабування елемента по вертикалі (вісь Y).</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>scaleZ(z)</code></dt>
+                    <dd>
+                        <p>Маштабування елемента по вісі Z.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>rotate(angle)</code></dt>
+                    <dd>
+                        <p>Обертає елемент, на заданий кут, в двомірному просторі.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>rotate3d(x,y,z,angle)</code></dt>
+                    <dd>
+                        <p>Обертає елемент в тривимірному просторі.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>rotateX(angle)</code></dt>
+                    <dd>
+                        <p>3D обертання елемента по вісі Х.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>rotateY(angle)</code></dt>
+                    <dd>
+                        <p>3D обертання елемента по вісі Y.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>rotateZ(angle)</code></dt>
+                    <dd>
+                        <p>3D обертання елемента по вісі Z.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>skew(x-angle,y-angle)</code></dt>
+                    <dd>
+                        <p>2D перекіс двум вісям Х- та Y ( по горизонталі та вертикалі).</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>skewX(angle)</code></dt>
+                    <dd>
+                        <p>2D перекіс по горизонталі (вісь Х).</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>skewY(angle)</code></dt>
+                    <dd>
+                        <p>2D перекіс по вертикалі (вісь Y).</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>perspective(n)</code></dt>
+                    <dd>
+                        <p>Перспективний вид для 3D трансформованого елемента.</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>initial</code></dt>
+                    <dd>
+                        <p>Встановлює властивість у значення без задання</p>
+
+                    </dd>
+                </div>
+                <div class="table-row">
+                    <dt><code>inherit</code></dt>
+                    <dd>
+                        <p>Вказує на спадковість властивості від свого батьківського елемента (якщо відповідна
+                            властивість встановлена).</p>
+
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="slide transform-demo">
+        <h2>Трансформація елементу</h2>
+        <div class="demo-wrapper">
+            <div class="buttons">
+                <textarea class="demo-button">transform: matrix(1, 2, 3, 4, 5, 6);</textarea>
+
+                <textarea class="demo-button">transform: translate(120px, 50%);</textarea>
+
+                <textarea class="demo-button">transform: scale(2, 0.5);</textarea>
+
+                <textarea class="demo-button">transform: rotate(0.5turn);</textarea>
+
+                <textarea class="demo-button">transform: skew(30deg, 20deg);</textarea>
+
+                <textarea class="demo-button">transform: scale(0.5) translate(-100%, -100%);</textarea>
+            </div>
+
+            <div class="t-elements">
+                <div class="demo-element">
+                    Lorem ipsum dolor sit amet.
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .t-elements {
+                border: 1px solid #000;
+                width: 70%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .demo-element {
+                width: 50%;
+                border: 1px solid #000;
+                padding: 1em;
+            }
+        </style>
+
+        <script>
+            function removeActive3() {
+                document.querySelectorAll('.transform-demo .demo-button').forEach(b => b.classList.remove('active'))
+            }
+
+            document.querySelectorAll('.transform-demo .demo-button').forEach(b => {
+
+                function changeStyle() {
+                    const demoBlock = document.querySelector('.demo-element')
+                    const style = this.value
+                    removeActive3()
+                    this.classList.add('active')
+                    demoBlock.style = style;
+                }
+
+                b.onchange = changeStyle
+                b.onfocus = changeStyle
+            })
+        </script>
+    </section>
+
+    <section class="slide">
+        <h2>Використовуючи документ з попереднього заняття:</h2>
+
+        <p>Використовуючи документ з попереднього заняття:</p>
+        <ol>
+            <li>у десктопній версії документу додати тінь для лівого блоку</li>
+            <li>при наведенні на фото воно має збільшуватись в розмірах. Збільшена фотографія має мітити тінь. Фотографія не має збільшуватись лише на мобільній версії</li>
+            <li>в полі “Досвід” попередні місця роботи зробити з прозорістю 70%. При наведені на попереднє місце роботи прозорість має змінюватись на 100% 
+            </li>
+            <li>роботу оформити в окрему гілку з номером уроку у вашому репозиторії та додати посилання на HTML-документ у поле відповіді в особистому кабінеті
+            </li>
+        </ol>
+        <a href="https://www.figma.com/file/3UpiAJ3gdZk513ouEjzFn3/Untitled-(Copy)?node-id=0%3A1&t=LofcZ6eCDpPWrovu-0"
+            target="_blank">Макет</a>
+
+    </section>
+
+    <div class="progress"></div>
+
+    <script src="node_modules/@shower/core/dist/shower.js"></script>
+
+</body>
+
+</html>
